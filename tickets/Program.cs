@@ -4,6 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+struct Login
+{
+    public string userName;
+    public string password;
+};
+
 namespace tickets
 {
     static class Program
@@ -16,7 +22,7 @@ namespace tickets
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new main());
         }
     }
 }
