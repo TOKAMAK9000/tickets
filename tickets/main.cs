@@ -44,6 +44,21 @@ namespace tickets
             return retString;
         }
 
+        public string HttpGet(string Url, string postDataStr)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url + (postDataStr == "" ? "" : "?") + postDataStr);
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+            return retString;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             Login login;
@@ -80,10 +95,13 @@ namespace tickets
         {
             string userName = UserName.Text;
             string password = Password.Text;
-            string PostURL = "http://localhost:8080/applicationServer/Home/Actor/NewActor";
+            string PostURL = "http://localhost:8080/tickets/Home/User/login";
             string ParamString = "userName=" + userName + "&&" + "password=" + password;
-            //string result = HttpPost(PostURL, ParamString);
-            //MessageBox.Show(result);
+            string result = HttpGet(PostURL, ParamString);
+            if (result == "success")
+            {
+                MessageBox.Show("pong!");
+            }
             Form userMain = new userMain();
             this.Hide();
             userMain.Show();
