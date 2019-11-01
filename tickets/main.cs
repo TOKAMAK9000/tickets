@@ -95,7 +95,7 @@ namespace tickets
         {
             string userName = UserName.Text;
             string password = Password.Text;
-            string PostURL = "http://localhost:8080/tickets/Home/User/login";
+            string PostURL = "http://localhost/tickets/Home/User/login/"+ userName+"/"+ password;
             string ParamString = "userName=" + userName + "&&" + "password=" + password;
             string result = HttpGet(PostURL, ParamString);
             if (result == "success")
